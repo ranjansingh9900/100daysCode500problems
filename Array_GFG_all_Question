@@ -255,5 +255,271 @@ int main(){
 
 
 
+*******///...Find the Union and Intersection of the two sorted arrays.
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// union uisng set
+
+int getunion(int arr[], int arr1[], int n, int m)
+{
+    set<int> s;
+    for (int i = 0; i < n; i++)
+    {
+        s.insert(arr[i]);
+    }
+    for (int i = 0; i < m; i++)
+    {
+        s.insert(arr1[i]);
+    }
+    cout << "union using set " << endl;
+
+    for (int value : s)
+    {
+        cout << value << " ";
+    }
+    cout << endl;
+}
+
+// union using map
+
+void getunion1(int arr[], int arr1[], int n, int m)
+{
+    std::map<int, int> mp;
+    for (int i = 0; i < n; i++)
+    {
+        mp.insert({arr[i], i});
+    }
+    for (int i = 0; i < m; i++)
+    {
+        mp.insert({arr1[i], i});
+    }
+    cout << "union using map" << endl;
+    for (auto itr = mp.begin(); itr != mp.end(); itr++)
+    {
+        cout << itr->first << " ";
+    }
+}
+
+// intersection using set
+
+void intersectioin(int arr[], int arr1[], int n, int m)
+{
+
+    set<int> sp;
+    for (int i = 0; i < n; i++)
+    {
+        sp.insert({arr[i]});
+    }
+    for (int i = 0; i < m; i++)
+    {
+        if (sp.find(arr1[i]) != sp.end())
+        {
+            sp.erase(arr1[i]);
+
+            cout << arr1[i] << " ";
+        }
+    }
+}
+
+int main()
+{
+    int arr[] = {1, 4, 5, 6, 2, 45, 63, 5};
+    int arr1[] = {1, 4, 5, 3, 5, 2, 46, 56, 35};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int m = sizeof(arr1) / sizeof(arr1[0]);
+    getunion(arr, arr1, n, m);
+    cout << endl;
+    getunion1(arr, arr1, n, m);
+    cout << endl;
+    cout << "intersection " << endl;
+    intersectioin(arr, arr1, n, m);
+
+    return 0;
+}
+
+
+
+******///... Write a program to cyclically rotate an array by one.
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void rotate(int arr[], int n)
+{
+    int x = arr[n - 1];
+    for (int i = n - 1; i > 0; i--)
+    {
+        arr[i] = arr[i - 1];
+    }
+    arr[0] = x;
+}
+
+int main()
+{
+    int arr[] = {1, 2, 3, 4, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    rotate(arr, n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+    return 0;
+}
+
+
+
+******///.... find Largest sum contiguous Subarray [V. IMP]
+
+
+
+// kadane's algorithm
+
+/*The idea of Kadane’s algorithm is to maintain a variable max_ending_here that stores the
+maximum sum contiguous subarray ending at current index and a variable max_so_far stores the maximum sum
+ of contiguous subarray found so far, Everytime there is a positive-sum value in max_ending_here
+compare it with max_so_far and update max_so_far if it is greater than max_so_far
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxsubarraysum(int arr[], int n)
+{
+    int msf = INT_MIN, meh = 0;
+    for (int i = 0; i < n; i++)
+    {
+        meh = meh + arr[i];
+        if (msf < meh)
+            msf = meh;
+        // cout << msf << " ";
+        if (meh < 0)
+            meh = 0;
+    }
+    cout << endl;
+
+    return msf;
+}
+
+void display(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
+}
+
+int main()
+{
+    int arr[] = {2, -2, 4, -6, -4, 2 - 8, 5, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    display(arr, n);
+    cout << endl;
+    cout << "max sub array sum : " << maxsubarraysum(arr, n);
+    // display(arr, n);
+
+    return 0;
+}
+
+
+
+*****///....Minimise the maximum difference between heights [V.IMP]
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int getmindiff(int arr[], int n, int k)
+{
+    sort(arr, arr + n);
+    int ans = arr[n - 1] - arr[0];
+    int tempmin, tempmax;
+    tempmin = arr[0];
+    tempmax = arr[n - 1];
+
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] - k < 0)
+        {
+            continue;
+        }
+        tempmin = min(arr[0] + k, arr[i] - k);
+        tempmax = max(arr[i - 1] + k, arr[n - 1] - k);
+        ans = min(ans, tempmax - tempmin);
+    }
+    return ans;
+}
+
+int main()
+{
+    int k = 6, n = 6;
+    int arr[n] = {7, 4, 8, 8, 8, 9};
+    int ans = getmindiff(arr, n, k);
+    cout << ans;
+
+    return 0;
+}
+
+
+******////...Minimum no. of Jumps to reach end of an array
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int minjumps(int arr[], int n)
+{
+    if (n == 1)
+        return 0;
+    int res = INT_MAX;
+    for (int i = n - 2; i >= 0; i--)
+    {
+        if (i + arr[i] >= n - 1)
+        {
+            int sub_res = minjumps(arr, i + 1);
+            if (sub_res != INT_MAX)
+                res = min(res, sub_res + 1);
+        }
+    }
+    return res;
+}
+
+int main()
+{
+    int arr[] = {1, 4, 6, 8, 4, 9, 5, 3, 2, 8, 9, 6, 6};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout << "minmum number of jumps to";
+    cout << "reach the end is " << minjumps(arr, n);
+
+    return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
