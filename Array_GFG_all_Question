@@ -983,6 +983,106 @@ int main()
 
 
 
+// ******/////...Find factorial of a large number
+
+#include <bits/stdc++.h>
+using namespace std;
+#define MAX 500
+
+int multiply(int x, int res[], int rs);
+
+void factorial(int n)
+{
+    int res[MAX];
+    res[0] = 1;
+    int rs = 1;
+    for (int x = 2; x <= n; x++)
+    {
+        rs = multiply(x, res, rs);
+    }
+    cout << "Factorial of given number is \n";
+    for (int i = rs - 1; i >= 0; i--)
+    {
+        cout << res[i];
+    }
+}
+
+int multiply(int x, int res[], int rs)
+{
+    int carry = 0;
+    for (int i = 0; i < rs; i++)
+    {
+        int prod = res[i] * x + carry;
+        res[i] = prod % 10;
+        carry = prod / 10;
+    }
+    while (carry)
+    {
+        res[rs] = carry % 10;
+        carry = carry / 10;
+        rs++;
+    }
+    return rs;
+}
+
+int main()
+{
+    int n;
+    cout << "enter the number: ";
+    cin >> n;
+    factorial(n);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+// *******////....find maximum product subarray
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxproduct(vector<int> &nums)
+{
+    int curr_product = 1, res = INT_MAX;
+    for (auto i : nums)
+    {
+        curr_product *= i;
+        res = max(curr_product, res);
+        if (curr_product == 0)
+        {
+            curr_product = 1;
+        }
+    }
+    curr_product = 1;
+    for (int i = nums.size() - 1; i >= 0; i--)
+    {
+        curr_product = curr_product * nums[i];
+        res = max(curr_product, res);
+        if (curr_product == 0)
+        {
+            curr_product = 1;
+        }
+    }
+    return res;
+}
+
+int main()
+{
+    vector<int> nums = {2,3,-2,4};
+    cout << maxproduct(nums);
+
+    return 0;
+}
+
+
+
+
 
 
 
