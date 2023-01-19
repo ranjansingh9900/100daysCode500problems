@@ -1164,8 +1164,163 @@ int main()
 
 
 
+// *******////..Find whether an array is a subset of another array
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool subarrset(int arr1[], int n, int arr2[], int m)
+{
+    set<int> hashset;
+    for (int i = 0; i < n; i++)
+    {
+        hashset.insert(arr1[i]);
+    }
+    for (int i = 0; i < m; i++)
+    {
+        if (hashset.find(arr2[i]) == hashset.end())
+        {
+            return false;
+        }
+        return true;
+    }
+}
+
+int main()
+{
+    int arr1[] = {11,1,13,21,3,7};
+    int n = sizeof(arr1) / sizeof(arr1[0]);
+    int arr2[] = {11,3,7,1};
+    int m = sizeof(arr2) / sizeof(arr2[0]);
+    if (subarrset(arr1, n, arr2, m))
+    {
+        cout << "it subarray ";
+    }
+    else
+    {
+        cout << " false :";
+    }
+
+    return 0;
+}
 
 
+
+// *******//////...Find the triplet that sum to a given value
+
+#include <bits/stdc++.h>
+using namespace std;
+bool findtriplet(int arr[], int m, int sum)
+{
+    for (int i = 0; i < m - 2; i++)
+    {
+        for (int j = i + 1; j < m - 1; j++)
+        {
+            for (int k = j + 1; k < m; k++)
+            {
+                if (arr[i] + arr[j] + arr[k] == sum)
+                {
+                    cout << "triplet is " << arr[i] << ", " << arr[j] << ", " << arr[k] << " = " << sum;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+int main()
+{
+
+    int arr[] = {1, 4, 45, 6, 10, 8};
+    int m = sizeof(arr) / sizeof(arr[0]);
+    int c;
+    cin >> c;
+    if (findtriplet(arr, m, c))
+    {
+    }
+    else
+    {
+        cout << "not find:";
+    }
+}
+
+
+
+// ******/////....Trapping Rain water problem
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int trappingwater(int arr[], int n)
+{
+    int lmax[n];
+    lmax[0] = arr[0];
+    for (int i = 1; i < n; i++)
+    {
+        int temp = max(arr[i], lmax[i - 1]);
+        lmax[i] = temp;
+    }
+    int rmax[n];
+    rmax[n - 1] = arr[n - 1];
+    for (int i = n - 2; i >= 0; i--)
+    {
+        int temp = max(arr[i], rmax[i + 1]);
+        rmax[i] = temp;
+    }
+    int water;
+    for (int i = 1; i < n - 1; i++)
+    {
+        water += min(lmax[i], rmax[i]) - arr[i];
+    }
+    return water;
+}
+int main()
+{
+    int arr[] = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+    // int arr[]={3, 0, 2, 0, 4};
+
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout << "trap water = " << trappingwater(arr, n);
+
+    return 0;
+}
+
+
+
+
+// *******////...Chocolate Distribution problem
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int findmindiff(int arr[], int n, int m)
+{
+    if (m == 0 || n == 0)
+        return 0;
+    sort(arr, arr + n);
+    if (n < m)
+        return -1;
+    int min = INT_MAX;
+    for (int i = 0; i + m - 1 < n; i++)
+    {
+        int diff = arr[i + m - 1] - arr[i];
+        if (diff < min)
+            min = diff;
+    }
+    return min;
+}
+int main()
+{
+    int arr[] = {12, 4, 7, 9, 2, 23, 25, 41, 30, 40, 28, 42, 30, 44, 48, 43, 50};
+    int m = 7;
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout << "Min diff " << findmindiff(arr, n, m);
+    return 0;
+
+    return 0;
+}
 
 
 
