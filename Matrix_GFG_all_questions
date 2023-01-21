@@ -1,1 +1,92 @@
+// 1..*******/////....Spiral traversal on a Matrix
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define R 4
+#define C 4
+void print(int arr[R][C], int i, int j, int m, int n)
+{
+    if (i >= m or j >= n)
+    {
+        return;
+    }
+    for (int p = j; p < n; p++)
+    {
+        cout << arr[i][p] << " ";
+    }
+    for (int p = i + 1; p < m; p++)
+    {
+        cout << arr[p][n - 1] << " ";
+    }
+    if ((m - 1) != i)
+    {
+        for (int p = n - 2; p >= j; p--)
+        {
+            cout << arr[m - 1][p] << " ";
+        }
+    }
+    if ((n - 1) != j)
+    {
+        for (int p = m - 2; p > i; p--)
+        {
+            cout << arr[p][j] << " ";
+        }
+    }
+    print(arr, i + 1, j + 1, m - 1, n - 1);
+}
+
+int main()
+{
+
+    int arr[R][C] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+    print(arr, 0, 0, R, C);
+
+    return 0;
+}
+
+
+
+
+
+// 2..********/////....Search an element in a matriix
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool searchMatrix(vector<vector<int>> &matrix, int target)
+{
+    int r = 0, c = matrix[0].size() - 1;
+    while (r < matrix.size() && c >= 0)
+    {
+        if (matrix[r][c] == target)
+            return true;
+        else if (matrix[r][c] < target)
+            r++;
+        else
+            c--;
+    }
+    return false;
+}
+
+int main()
+{
+    vector<vector<int>> arr = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+    int t;
+    cin >> t;
+    if (searchMatrix(arr, t))
+    {
+        cout << "element find = " << t;
+    }
+    else
+    {
+        cout << "not find";
+    }
+
+    return 0;
+}
+
+
+
+
 
