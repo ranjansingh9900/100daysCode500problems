@@ -132,5 +132,80 @@ int main()
 
 
 
+// *******/////...4.Find row with maximum no. of 1's
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define R 4
+#define C 4
+
+int rowwithmax1s(bool matrix[R][C])
+{
+    int row = -1;
+    int countmax = 0;
+    for (int i = 0; i < R; i++)
+    {
+        int count = 0;
+        for (int j = 0; j < C; j++)
+        {
+            if (matrix[i][j] == 1)
+            {
+                count++;
+            }
+        }
+        if (count > countmax)
+        {
+            countmax == count;
+            row = i;
+        }
+    }
+    return row;
+}
+
+int main()
+{
+    bool matrix[R][C] = {{0, 1, 1, 1}, {0, 0, 1, 1}, {1, 1, 1, 1}, {0, 0, 0, 0}};
+    cout << " Index of row with maximum 1s is : " << rowwithmax1s(matrix) << endl;
+
+    return 0;
+}
+
+
+// *******/////..5..Print elements in sorted order using row-column wise sorted matrix
+#include <bits/stdc++.h>
+using namespace std;
+#define R 4
+#define C 4
+
+void sortted(int arr[R][C], int r, int c)
+{
+    vector<int> nums;
+    for (int i = 0; i < r; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            nums.push_back(arr[i][j]);
+        }
+    }
+    sort(nums.begin(), nums.end());
+
+    for (int i = 0; i < nums.size(); i++)
+    {
+        cout << nums[i] << " ";
+    }
+}
+
+int main()
+{
+    int arr[R][C] = {{100, 200, 300, 400}, {15, 25, 35, 45}, {27, 29, 37, 48}, {32, 33, 39, 50}};
+    sortted(arr, 4, 4);
+
+    return 0;
+}
+
+
+
+
 
 
