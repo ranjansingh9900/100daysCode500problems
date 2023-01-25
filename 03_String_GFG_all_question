@@ -20,3 +20,121 @@ int main()
 
     return 0;
 }
+
+
+
+
+
+// *******///...2..Palindrome String
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string str = "acbbca";
+    int i = 0, j = str.size() - 1;
+    while (i < j)
+    {
+        if (str[i++] != str[j--])
+        {
+            cout << "its not palindrome : ";
+            return 0;
+        }
+    }
+    cout << "its a palindrome : " << str;
+
+    return 0;
+}
+
+
+// ********////...4..Why strings are immutable in Java?
+./*
+Why String is Immutable or Final in Java
+In object-oriented programming, the immutable string or objects that cannot be modified once it is created. But we can only change the
+ reference to the object. We restrict to change the object itself. The String is immutable in Java because of the security, synchronization
+  and concurrency, caching, and class loading. The reason of making string final is to destroy the immutability and to not allow others 
+  to extend it.
+The String objects are cached in the String pool, and it makes the String immutable. The cached String literals are accessed by multiple 
+clients. So, there is always a risk, where action performs by one client affects all other clients. For example, if one client performs 
+an action and changes the string value from Pressure to PRESSURE, all remaining clients will also read that value. For the performance reason,
+ caching of String objects was important, so to remove that risk, we have to make the String Immutable.
+ 
+These are some more reasons of making String immutable:
+o	The String pool cannot be possible if String is not immutable in Java. A lot of heap space is saved by JRE. The same string variable 
+can be referred to by more than one string variable in the pool. String interning can also not be possible if the 
+String would not be immutable.
+o	If we don't make the String immutable, it will pose a serious security threat to the application. 
+For example, database usernames, passwords are passed as strings to receive database connections. 
+The socket programming host and port descriptions are also passed as strings. 
+The String is immutable, so its value cannot be changed. 
+If the String doesn't remain immutable, any hacker can cause a security issue in the application by changing the reference value.
+o	The String is safe for multithreading because of its immutableness. 
+Different threads can access a single "String instance". 
+It removes the synchronization for thread safety because we make strings thread-safe implicitly.
+o	Immutability gives the security of loading the correct class by Classloader. For example, suppose we have an instance where we try to load java.sql.Connection class but the changes in the referenced value to the myhacked.Connection class does unwanted things to our database.
+Let's understand the concept of immutable through an example.
+ImmutableString.java
+1.	import java.util.*;
+2. class ImmutableString
+{
+    3. public static void main(String args[])
+    {
+        4. String NewString = "Hello";
+        5. NewString.concat("World");
+        6. System.out.println(NewString);
+        7.
+    }
+    8.
+} Output :
+
+    Description : We can understand the above example with the help of the following diagram :
+
+    In the string constant pool,
+    the Hello remains unchanged,
+    and a new string object is created with HelloWorld.It shows that the strings are immutable.The reference variable points to the Hello not to the HelloWorld.If we want that it refers to the HelloWorld,
+    we have to explicitly assign it to that variable.For example : 1. import java.util.*
+    ;
+2. class ImmutableString
+{
+    3. public static void main(String args[])
+    {
+        4. String NewString = "Hello";
+        5. NewString = NewString.concat("World");
+        6. System.out.println(NewString);
+        7.
+    }
+    8.
+} Output:
+*/
+
+
+//*******...3..Find Duplicate characters in a string
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void finduplicate(string &str)
+{
+    int s = str.size();
+    map<char, int> mp;
+    for (int i = 0; i < s; i++)
+    {
+        mp[str[i]]++;
+    }
+    for (auto it : mp)
+    {
+        if (it.second > 1)
+        {
+            cout << it.first << " count = " << it.second << endl;
+        }
+    }
+}
+
+int main()
+{
+
+    string str = "RRRGGGFGFHGHGH";
+    finduplicate(str);
+    return 0;
+}
+
