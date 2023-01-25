@@ -138,3 +138,38 @@ int main()
     return 0;
 }
 
+
+
+// ******///...5..Write a Code to check whether one string is a rotation of another
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool stringrotation(string s, string goal)
+{
+    if (s.length() != goal.length())
+        return 0;
+
+    string str = s + s;
+    size_t found = str.find(goal);
+    if (found != string::npos)
+        return true;
+    else
+        return false;
+}
+
+int main()
+{
+    string s = "abede";
+    string goal = "cdeab";
+    if (stringrotation(s, goal))
+    {
+        cout << "true";
+    }
+    else
+    {
+        cout << "false";
+    }
+
+    return 0;
+}
