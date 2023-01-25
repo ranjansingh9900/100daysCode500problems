@@ -1,0 +1,22 @@
+// ********///...1..Reverse a String
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void reverse(string &str)
+{
+    int i = 0, j = str.size() - 1;
+    while (i < j)
+    {
+        swap(str[i++], str[j--]);
+    }
+}
+
+int main()
+{
+    string str = "ranjan singh";
+    reverse(str);
+    cout << str;
+
+    return 0;
+}
