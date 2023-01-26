@@ -173,3 +173,59 @@ int main()
 
     return 0;
 }
+
+
+
+//******...6..Write a Program to check whether a string is a valid shuffle of two strings or not
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isshuffled(string a, string b)
+{
+    int n = a.length();
+    int m = b.length();
+    if (n > m)
+    {
+        return false;
+    }
+    else
+    {
+        sort(a.begin(), a.end());
+        for (int i = 0; i < m; i++)
+        {
+            if (i + n - 1 >= m)
+                return false;
+            string str = "";
+            for (int j = 0; j < n; j++)
+            {
+                str.push_back(b[i + j]);
+            }
+            sort(str.begin(), str.end());
+            if (str == a)
+            {
+                return true;
+            }
+        }
+    }
+}
+
+int main()
+{
+    string str1 = "geekforgeeks";
+    string str2 = "ekegorfkeegsgeek";
+    if (isshuffled(str1, str2))
+    {
+        cout << "YES";
+    }
+    else
+    {
+        cout << "NO";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+
