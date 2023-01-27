@@ -1,1 +1,44 @@
+//******..1..Find first and last positions of an element in a sorted array
 
+#include <bits/stdc++.h>
+using namespace std;
+
+void farstlastposition(vector<int> nums, int t)
+{
+    int fast = -1, last = -1;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (nums[i] != t)
+        {
+            continue;
+        }
+        if (fast == -1)
+        {
+            fast = i;
+        }
+        last = i;
+    }
+    if (fast != -1 && last != fast)
+    {
+        cout << fast << " , " << last;
+    }
+    else if (last == fast && fast >= 0)
+    {
+        cout << fast;
+    }
+    else
+    {
+        cout << "not found : ";
+    }
+}
+
+int main()
+{
+    vector<int> v = {1, 2, 2, 2, 2, 3, 4, 7, 8, 8};
+    cout << " input ";
+    int c;
+    cin >> c;
+    farstlastposition(v, c);
+
+    return 0;
+}
