@@ -42,3 +42,30 @@ int main()
 
     return 0;
 }
+
+
+
+// *****...2..Find a Fixed Point (Value equal to index) in a given array
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void fixedpoint(vector<int> arr)
+{
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (arr[i] == (i + 1))
+        {
+            cout << " index " << (i + 1) << " value = " << arr[i];
+            break;
+        }
+    }
+}
+
+int main()
+{
+    vector<int> arr = {3, 23, 45, 4, 87};
+    fixedpoint(arr);
+
+    return 0;
+}
