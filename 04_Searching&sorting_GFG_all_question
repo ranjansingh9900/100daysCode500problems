@@ -145,8 +145,51 @@ int main()
 
 
 
+// ****...4..square root of an integer
 
 
+#include <bits/stdc++.h>
+using namespace std;
+
+int countSquares(int x)
+{
+    int sqr = sqrt(x);
+    int result = (int)(sqr);
+    return result;
+}
+int main()
+{
+
+    int x;
+    cin >> x;
+    cout << (countSquares(x));
+
+    return 0;
+}
+
+
+
+
+// ****...5..Maximum and minimum of an array using minimum number of comparisons
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int arr[] = {1000, 11, 445, 330, 3000};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int max_val = 0;
+    int min_val = arr[0];
+    for (int i = 0; i < n; i++)
+    {
+        min_val = min(min_val, arr[i]);
+        max_val = max(max_val, arr[i]);
+    }
+    cout << "max val = " << max_val << endl
+         << "min val = " << min_val;
+
+    return 0;
+}
 
 
 
