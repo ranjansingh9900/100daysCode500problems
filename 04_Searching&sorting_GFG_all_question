@@ -230,3 +230,133 @@ int main()
 
 
 
+
+// ***...8..find majority element
+#include <bits/stdc++.h>
+using namespace std;
+
+int find(int arr[], int n)
+{
+    int max_count = 0;
+    int index = -1;
+    for (int i = 0; i < n; i++)
+    {
+        int count = 0;
+        for (int j = 0; j < n; j++)
+        {
+            if (arr[i] == arr[j])
+            {
+                count++;
+            }
+        }
+        if (count > max_count)
+        {
+            max_count = count;
+            index = i;
+        }
+    }
+    if (max_count > n / 2)
+    {
+        cout << "majority array : " << arr[index];
+    }
+    else
+    {
+        cout << "not  majority array";
+    }
+}
+
+int main()
+{
+
+    int arr[] = {1, 1, 2, 1, 3, 5, 1,5,5,5,5,5,5,5,5,5,5,5,5,};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    find(arr, n);
+
+    return 0;
+}
+
+
+
+// ***...9..Searching in an array where adjacent differ by at most k
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int search(int arr[], int n, int x, int k)
+{
+    int i = 0;
+    while (i < n)
+    {
+        if (arr[i] == x)
+        {
+            return i;
+        }
+        i = i + max(1, abs(x - arr[i]) / k);
+    }
+    cout << "not found : ";
+    return -1;
+}
+
+int main()
+{
+    int arr[] = {2, 4, 5, 7, 7, 6};
+    int x;
+    int k;
+    cout << "enter x and k : ";
+    cin >> x >> k;
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout << "Element " << x << " is present at index "
+         << search(arr, n, x, k);
+
+    return 0;
+}
+
+
+// ***...10..find a pair with a given difference
+#include <bits/stdc++.h>
+using namespace std;
+
+void search(int arr[], int n, int x)
+{
+    int count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i; j < n; j++)
+        {
+            if (abs(arr[i] - arr[j]) == x)
+            {
+                count++;
+                cout << arr[i] << " , " << arr[j] << endl;
+            }
+        }
+    }
+    if (count > 0)
+    {
+        cout << count;
+    }
+    else
+    {
+        cout << "not found : ";
+    }
+}
+
+int main()
+{
+    int arr[] = {5, 20, 3, 2, 17, 80};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int x;
+    cout << "enter element : ";
+    cin >> x;
+    search(arr, n, x);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
