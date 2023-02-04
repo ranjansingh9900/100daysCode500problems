@@ -355,6 +355,52 @@ int main()
 
 
 
+// ***...12..Stickler Thief
+#include <bits/stdc++.h>
+using namespace std;
+
+int findmaxmoney(int *arr, int n)
+{
+    if (n == 0)
+        return 0;
+    int val1 = arr[0];
+    if (n == 1)
+    {
+        return val1;
+    }
+    int val2;
+    val2 = max(arr[0], arr[1]);
+    if (n == 2)
+    {
+        return val2;
+    }
+    int max_val;
+    for (int i = 2; i < n; i++)
+    {
+        max_val = max(arr[i] + val1, val2);
+        val1 = val2;
+        val2 = max_val;
+    }
+
+    return max_val;
+}
+
+int main()
+{
+    int arr[] = {5, 5, 10, 100, 10, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout << "max money is : " << findmaxmoney(arr, n);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
 
 
 
