@@ -396,6 +396,83 @@ int main()
 
 
 
+// ***...13..Count triplet with sum smaller than a given value
+
+#include <bits/stdc++.h>
+using namespace std;
+int searchcount(int arr[], int n, int sum)
+{
+    int count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i; j < n; j++)
+        {
+            for (int k = 2; k < n; k++)
+            {
+                if (arr[i] + arr[j] + arr[k] == sum)
+                    count++;
+            }
+        }
+    }
+    return count;
+    
+}
+
+int main()
+{
+    // int arr[] = {5, 1, 3, 4, 7};
+    int arr[]={-2, 0, 1, 3};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int sum = 2;
+    cout << "max count : " << searchcount(arr, n, sum);
+
+    return 0;
+}
+
+
+
+
+// ***...14..merge 2 sorted arrays
+#include <bits/stdc++.h>
+using namespace std;
+
+void margesortedarray(int arr1[], int arr2[], int n1, int n2)
+{
+    vector<int> v;
+    for (int i = 0; i < n1; i++)
+    {
+        v.push_back(arr1[i]);
+    }
+    for (int i = 0; i < n2; i++)
+    {
+        v.push_back(arr2[i]);
+    }
+    sort(v.begin(), v.end());
+    for (int i = 0; i < v.size(); i++)
+    {
+        cout << v[i] << " ";
+    }
+}
+
+int main()
+{
+    int arr1[] = {1, 3, 5, 7};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+
+    int arr2[] = {2, 4, 6, 8};
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+    margesortedarray(arr1, arr2, n1, n2);
+
+    return 0;
+}
+
+
+
+
+
+
+
+
 
 
 
