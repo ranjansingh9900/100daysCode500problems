@@ -790,6 +790,169 @@ int main()
 
 
 
+// ***...22..Find pivot element in a sorted array
+#include <bits/stdc++.h>
+using namespace std;
+
+int search(int arr[], int l, int h, int key)
+{
+    if (l > h)
+        return -1;
+
+    int mid = (l + h) / 2;
+    if (arr[mid] == key)
+        return mid;
+
+    /* If arr[l...mid] is sorted */
+    if (arr[l] <= arr[mid])
+    {
+        /* As this subarray is sorted, we can quickly
+        check if key lies in half or other half */
+        if (key >= arr[l] && key <= arr[mid])
+            return search(arr, l, mid - 1, key);
+        /*If key not lies in first half subarray,
+        Divide other half into two subarrays,
+        such that we can quickly check if key lies
+        in other half */
+        return search(arr, mid + 1, h, key);
+    }
+
+    /* If arr[l..mid] first subarray is not sorted, then
+    arr[mid... h] must be sorted subarray */
+    if (key >= arr[mid] && key <= arr[h])
+        return search(arr, mid + 1, h, key);
+
+    return search(arr, l, mid - 1, key);
+}
+
+// Driver program
+int main()
+{
+    int arr[] = {4, 5, 6, 7, 8, 9, 1, 2, 3};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int key = 3;
+    int i = search(arr, 0, n - 1, key);
+
+    if (i != -1)
+        cout << "Index: " << i << endl;
+    else
+        cout << "Key not found";
+}
+
+
+
+
+// ***...23.. Program to find kth element from two sorted arrays
+
+#include <iostream>
+using namespace std;
+
+int kth(int arr1[], int arr2[], int m, int n, int k)
+{
+    int sorted1[m + n];
+    int i = 0, j = 0, d = 0;
+    while (i < m && j < n)
+    {
+        if (arr1[i] < arr2[j])
+            sorted1[d++] = arr1[i++];
+        else
+            sorted1[d++] = arr2[j++];
+    }
+    while (i < m)
+        sorted1[d++] = arr1[i++];
+    while (j < n)
+        sorted1[d++] = arr2[j++];
+    return sorted1[k - 1];
+}
+
+// Driver Code
+int main()
+{
+    int arr1[5] = {2, 3, 6, 7, 9};
+    int arr2[4] = {1, 4, 8, 10};
+    int k = 5;
+    cout << kth(arr1, arr2, 5, 4, k);
+    return 0;
+}
+
+
+// ***...24...Aggressive cows
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to check if it is possible
+// to position the cow x distance apart
+bool ok(vector<int> &v, int x, int c)
+{
+    int n = v.size();
+
+    int count = 1;
+    int d = v[0];
+    for (int i = 1; i < n; i++)
+    {
+        if (v[i] - d >= x)
+        {
+            d = v[i];
+            count++;
+        }
+        else
+        {
+            continue;
+        }
+    }
+    if (count >= c)
+    {
+        return true;
+    }
+    return false;
+}
+
+int aggressive_cows(vector<int> &v, int n, int k)
+{
+
+    int l = 1;
+    int r = 1e9;
+    int ans = -1;
+
+    while (r >= l)
+    {
+        int mid = l + (r - l) / 2;
+        if (ok(v, mid, k))
+        {
+            ans = mid;
+            l = mid + 1;
+        }
+        else
+        {
+            r = mid - 1;
+        }
+    }
+
+    return ans;
+}
+
+int main()
+{
+    int K = 3;
+    vector<int> v = {1, 5, 1, 2, 8, 4, 9};
+
+    int N = v.size();
+    sort(v.begin(), v.end());
+
+    int ans = aggressive_cows(v, N, K);
+    cout << ans << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
 
 
 
