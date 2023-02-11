@@ -949,6 +949,164 @@ int main()
 
 
 
+// ***...25..Book Allocation Problem
+// C++ program for optimal allocation of pages
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isPossible(int arr[], int n, int m, int curr_min)
+{
+    int studentsRequired = 1;
+    int curr_sum = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+
+        if (arr[i] > curr_min)
+            return false;
+
+        if (curr_sum + arr[i] > curr_min)
+        {
+            studentsRequired++;
+
+            curr_sum = arr[i];
+
+            if (studentsRequired > m)
+                return false;
+        }
+
+        else
+            curr_sum += arr[i];
+    }
+    return true;
+}
+
+int findPages(int arr[], int n, int m)
+{
+    long long sum = 0;
+
+    if (n < m)
+        return -1;
+    int mx = INT_MIN;
+
+    for (int i = 0; i < n; i++)
+    {
+        sum += arr[i];
+        mx = max(mx, INT_MIN);
+    }
+
+    int start = mx, end = sum;
+    int result = INT_MAX;
+
+    while (start <= end)
+    {
+
+        int mid = (start + end) / 2;
+        if (isPossible(arr, n, m, mid))
+        {
+
+            result = mid;
+
+            end = mid - 1;
+        }
+
+        else
+
+            start = mid + 1;
+    }
+
+    return result;
+}
+
+// Drivers code
+int main()
+{
+    // Number of pages in books
+    int arr[] = {12, 34, 67, 90};
+    int n = sizeof arr / sizeof arr[0];
+    int m = 2; // No. of students
+
+    cout << "Minimum number of pages = "
+         << findPages(arr, n, m) << endl;
+    return 0;
+}
+
+
+
+
+
+// ***...26..EKOSPOJ
+#include <bits/stdc++.h>
+using namespace std;
+int a[1000005];
+int bsearch(int a[], int n, int k)
+{
+    int lo;
+    int hi;
+    int mid;
+    int i;
+    long long int count;
+    lo = 1;
+    hi = a[n - 1];
+
+    while (lo < hi)
+    {
+        mid = lo + (hi - lo + 1) / 2;
+        count = 0;
+        for (i = 0; i < n; i++)
+        {
+            if (a[i] > mid)
+            {
+                count = count + (a[i] - mid);
+            }
+        }
+
+        if (count >= k)
+        {
+            lo = mid;
+        }
+        else
+        {
+            hi = mid - 1;
+        }
+    }
+
+    return lo;
+}
+int main()
+{
+    long long int k;
+    int n;
+    int t;
+
+    int i;
+    int ans;
+
+    scanf("%d%lld", &n, &k);
+
+    for (i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+
+    sort(a, a + n);
+
+    ans = bsearch(a, n, k);
+
+    printf("%d\n", ans);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
