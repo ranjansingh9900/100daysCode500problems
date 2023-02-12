@@ -23,6 +23,7 @@ void printff(int arr[], int n)
     }
 
 
+
 }
 **/
 // way2
