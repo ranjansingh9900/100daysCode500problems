@@ -520,6 +520,191 @@ int main()
 
 
 
+// ***...12...Split the Binary string into two substring with equal 0’s and 1’s
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int maxSubStr(string str, int n)
+{
+
+    int count0 = 0, count1 = 0;
+
+    int cnt = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (str[i] == '0')
+        {
+            count0++;
+        }
+        else
+        {
+            count1++;
+        }
+        if (count0 == count1)
+        {
+            cnt++;
+        }
+    }
+
+    // It is not possible to
+    // split the string
+    if (count0 != count1)
+    {
+        return -1;
+    }
+
+    return cnt;
+}
+
+// Driver code
+int main()
+{
+    string str = "0100110101";
+    int n = str.length();
+
+    cout << maxSubStr(str, n);
+
+    return 0;
+}
+
+
+
+// ***...13....Word Wrap Problem [VERY IMP].
+
+#include <bits/stdc++.h>
+using namespace std;
+#define INF INT_MAX
+
+int printSolution(int p[], int n);
+
+void solveWordWrap(int l[], int n, int M)
+{
+
+    int extras[n + 1][n + 1];
+
+    int lc[n + 1][n + 1];
+
+    int c[n + 1];
+
+    int p[n + 1];
+
+    int i, j;
+
+    for (i = 1; i <= n; i++)
+    {
+        extras[i][i] = M - l[i - 1];
+        for (j = i + 1; j <= n; j++)
+            extras[i][j] = extras[i][j - 1] - l[j - 1] - 1;
+    }
+
+    for (i = 1; i <= n; i++)
+    {
+        for (j = i; j <= n; j++)
+        {
+            if (extras[i][j] < 0)
+                lc[i][j] = INF;
+            else if (j == n && extras[i][j] >= 0)
+                lc[i][j] = 0;
+            else
+                lc[i][j] = extras[i][j] * extras[i][j];
+        }
+    }
+
+    // Calculate minimum cost and find minimum cost arrangement.
+    // The value c[j] indicates optimized cost to arrange words
+    // from word number 1 to j.
+    c[0] = 0;
+    for (j = 1; j <= n; j++)
+    {
+        c[j] = INF;
+        for (i = 1; i <= j; i++)
+        {
+            if (c[i - 1] != INF && lc[i][j] != INF &&
+                (c[i - 1] + lc[i][j] < c[j]))
+            {
+                c[j] = c[i - 1] + lc[i][j];
+                p[j] = i;
+            }
+        }
+    }
+
+    printSolution(p, n);
+}
+
+int printSolution(int p[], int n)
+{
+    int k;
+    if (p[n] == 1)
+        k = 1;
+    else
+        k = printSolution(p, p[n] - 1) + 1;
+    cout << "Line number " << k << ": From word no. " << p[n] << " to " << n << endl;
+    return k;
+}
+
+// Driver program to test above functions
+int main()
+{
+    int l[] = {3, 2, 2, 5};
+    int n = sizeof(l) / sizeof(l[0]);
+    int M = 6;
+    solveWordWrap(l, n, M);
+    return 0;
+}
+
+
+
+// ***...14..EDIT Distance [Very Imp]
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int min(int x, int y, int z) { return min(min(x, y), z); }
+
+int editDistDP(string str1, string str2, int m, int n)
+{
+
+    int dp[m + 1][n + 1];
+
+    for (int i = 0; i <= m; i++)
+    {
+        for (int j = 0; j <= n; j++)
+        {
+
+            if (i == 0)
+                dp[i][j] = j;
+            else if (j == 0)
+                dp[i][j] = i;
+            else if (str1[i - 1] == str2[j - 1])
+                dp[i][j] = dp[i - 1][j - 1];
+
+            else
+                dp[i][j] = 1 + min(dp[i][j - 1],      // Insert
+                                   dp[i - 1][j],      // Remove
+                                   dp[i - 1][j - 1]); // Replace
+        }
+    }
+
+    return dp[m][n];
+}
+
+// Driver code
+int main()
+{
+    // your code goes here
+    string str1 = "sunday";
+    string str2 = "saturday";
+
+    cout << editDistDP(str1, str2, str1.length(),
+                       str2.length());
+
+    return 0;
+}
+
+
+
+
 
 
 
