@@ -436,9 +436,88 @@ int main()
 
 
 
+// ***...10...Print all Subsequences of a string.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+unordered_set<string> st;
+
+void subsequence(string str)
+{
+
+    for (int i = 0; i < str.length(); i++)
+    {
+
+        for (int j = str.length(); j > i; j--)
+        {
+            string sub_str = str.substr(i, j);
+            st.insert(sub_str);
+
+            for (int k = 1; k < sub_str.length(); k++)
+            {
+                string sb = sub_str;
+
+                sb.erase(sb.begin() + k);
+                subsequence(sb);
+            }
+        }
+    }
+}
+
+// Driver Code
+int main()
+{
+    string s = "aabc";
+    subsequence(s);
+    for (auto i : st)
+        cout << i << " ";
+    cout << endl;
+
+    return 0;
+}
 
 
-//*****
+
+// ***...11...Print all the permutations of the given string
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void permute(string &a, int l, int r)
+{
+    // Base case
+    if (l == r)
+        cout << a << endl;
+    else
+    {
+        // Permutations made
+        for (int i = l; i <= r; i++)
+        {
+
+            // Swapping done
+            swap(a[l], a[i]);
+
+            // Recursion called
+            permute(a, l + 1, r);
+
+            // backtrack
+            swap(a[l], a[i]);
+        }
+    }
+}
+
+// Driver Code
+int main()
+{
+    string str = "ABC";
+    int n = str.size();
+
+    // Function call
+    permute(str, 0, n - 1);
+    return 0;
+}
+
 
 
 
