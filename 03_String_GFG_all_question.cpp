@@ -1027,6 +1027,159 @@ int main()
 
 
 
+// 20...Convert a Sentence into its equivalent mobile numeric keypad sequence.
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function which computes the sequence
+string printSequence(string arr[], string input)
+{
+    string output = "";
+
+    // length of input string
+    int n = input.length();
+    for (int i = 0; i < n; i++) {
+        // Checking for space
+        if (input[i] == ' ')
+            output = output + "0";
+
+        else {
+            // Calculating index for each
+            // character
+            int position = input[i] - 'A';
+            output = output + arr[position];
+        }
+    }
+
+    // Output sequence
+    return output;
+}
+
+// Driver Code
+int main()
+{
+    // storing the sequence in array
+    string str[]
+        = { "2",   "22",  "222", "3",   "33",   "333", "4",
+            "44",  "444", "5",   "55",  "555",  "6",   "66",
+            "666", "7",   "77",  "777", "7777", "8",   "88",
+            "888", "9",   "99",  "999", "9999" };
+
+    string input = "GEEKSFORGEEKS";
+    cout << printSequence(str, input);
+    return 0;
+}
+
+
+
+
+
+
+// 21...Minimum number of bracket reversals needed to make an expression balanced.
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int countMinReversals(string expr)
+{
+	int len = expr.length();
+
+	if (len % 2)
+		return -1;
+
+
+	stack<char> s;
+	for (int i = 0; i < len; i++) {
+		if (expr[i] == '}' && !s.empty()) {
+			if (s.top() == '{')
+				s.pop();
+			else
+				s.push(expr[i]);
+		}
+		else
+			s.push(expr[i]);
+	}
+
+	// Length of the reduced expression
+	// red_len = (m+n)
+	int red_len = s.size();
+
+	// count opening brackets at the end of
+	// stack
+	int n = 0;
+	while (!s.empty() && s.top() == '{') {
+		s.pop();
+		n++;
+	}
+
+	// return ceil(m/2) + ceil(n/2) which is
+	// actually equal to (m+n)/2 + n%2 when
+	// m+n is even.
+	return (red_len / 2 + n % 2);
+}
+
+// Driver program to test above function
+int main()
+{
+	string expr = "}}{{";
+	cout << countMinReversals(expr);
+	return 0;
+}
+
+
+
+// 22...Count All Palindromic Subsequence in a given String.
+
+#include <cstring>
+#include <iostream>
+using namespace std;
+
+// Function return the total palindromic subsequence
+int countPS(string str)
+{
+	int N = str.length();
+
+	// create a 2D array to store the count of palindromic
+	// subsequence
+	int cps[N + 1][N + 1];
+	memset(cps, 0, sizeof(cps));
+
+	// palindromic subsequence of length 1
+	for (int i = 0; i < N; i++)
+		cps[i][i] = 1;
+
+	// check subsequence of length L is palindrome or not
+	for (int L = 2; L <= N; L++) {
+		for (int i = 0; i <= N-L; i++) {
+			int k = L + i - 1;
+			if (str[i] == str[k])
+				cps[i][k]
+					= cps[i][k - 1] + cps[i + 1][k] + 1;
+			else
+				cps[i][k] = cps[i][k - 1] + cps[i + 1][k]
+							- cps[i + 1][k - 1];
+		}
+	}
+
+	// return total palindromic subsequence
+	return cps[0][N - 1];
+}
+
+// Driver program
+int main()
+{
+	string str = "abcb";
+	cout << "Total palindromic subsequence are : "
+		<< countPS(str) << endl;
+	return 0;
+}
+
+
 
 
 
