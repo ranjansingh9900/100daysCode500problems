@@ -1181,6 +1181,183 @@ int main()
 
 
 
+// 23...Count of number of given string in 2D character array
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof(*a))
+
+
+int internalSearch(string needle, int row,
+				int col, string hay[],
+				int row_max, int col_max, int xx)
+{
+	int found = 0;
+
+	if (row >= 0 && row <= row_max && col >= 0 &&
+		col <= col_max && needle[xx] == hay[row][col])
+	{
+		char match = needle[xx];
+		xx += 1;
+
+		hay[row][col] = 0;
+
+		if (needle[xx] == 0)
+		{
+			found = 1;
+		}
+		else
+		{
+
+			// through Backtrack searching
+			// in every directions
+			found += internalSearch(needle, row,
+									col + 1, hay,
+									row_max, col_max,xx);
+			found += internalSearch(needle, row, col - 1,
+									hay, row_max, col_max,xx);
+			found += internalSearch(needle, row + 1, col,
+									hay, row_max, col_max,xx);
+			found += internalSearch(needle, row - 1, col,
+									hay, row_max, col_max,xx);
+		}
+		hay[row][col] = match;
+	}
+	return found;
+}
+
+// Function to search the string in 2d array
+int searchString(string needle, int row, int col,
+				string str[], int row_count,
+								int col_count)
+{
+	int found = 0;
+	int r, c;
+
+	for (r = 0; r < row_count; ++r)
+	{
+		for (c = 0; c < col_count; ++c)
+		{
+			found += internalSearch(needle, r, c, str,
+									row_count - 1,
+									col_count - 1, 0);
+		}
+	}
+	return found;
+}
+
+// Driver code
+int main()
+{
+	string needle = "MAGIC";
+	string input[] = { "BBABBM",
+					"CBMBBA",
+					"IBABBG",
+					"GOZBBI",
+					"ABBBBC",
+					"MCIGAM" };
+	string str[ARRAY_SIZE(input)];
+	int i;
+	for (i = 0; i < ARRAY_SIZE(input); ++i)
+	{
+		str[i] = input[i];
+	}
+
+	cout << "count: " << searchString(needle, 0, 0, str,
+									ARRAY_SIZE(str),
+									str[0].size()) << endl;
+	return 0;
+}
+
+
+
+
+// 24....Search a Word in a 2D Grid of characters.
+// C++ programs to search a word in a 2D grid
+#include <bits/stdc++.h>
+using namespace std;
+
+// For searching in all 8 direction
+int x[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int y[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+// This function searches in
+// all 8-direction from point
+// (row, col) in grid[][]
+bool search2D(char *grid, int row, int col,
+			string word, int R, int C)
+{
+	// If first character of word doesn't
+	// match with given starting point in grid.
+	if (*(grid+row*C+col) != word[0])
+		return false;
+
+	int len = word.length();
+
+	// Search word in all 8 directions
+	// starting from (row, col)
+	for (int dir = 0; dir < 8; dir++) {
+		// Initialize starting point
+		// for current direction
+		int k, rd = row + x[dir], cd = col + y[dir];
+
+		// First character is already checked,
+		// match remaining characters
+		for (k = 1; k < len; k++) {
+			// If out of bound break
+			if (rd >= R || rd < 0 || cd >= C || cd < 0)
+				break;
+
+			// If not matched, break
+			if (*(grid+rd*C+cd) != word[k])
+				break;
+
+			// Moving in particular direction
+			rd += x[dir], cd += y[dir];
+		}
+
+		// If all character matched, then value of k must
+		// be equal to length of word
+		if (k == len)
+			return true;
+	}
+	return false;
+}
+
+// Searches given word in a given
+// matrix in all 8 directions
+void patternSearch(char *grid, string word,
+				int R, int C)
+{
+	// Consider every point as starting
+	// point and search given word
+	for (int row = 0; row < R; row++)
+		for (int col = 0; col < C; col++)
+			if (search2D(grid, row, col, word, R, C))
+				cout << "pattern found at "
+					<< row << ", "
+					<< col << endl;
+}
+
+// Driver program
+int main()
+{
+	int R = 3, C = 13;
+	char grid[R][C] = { "GEEKSFORGEEKS",
+						"GEEKSQUIZGEEK",
+						"IDEQAPRACTICE" };
+
+	patternSearch((char *)grid, "GEEKS", R, C);
+	cout << endl;
+	patternSearch((char *)grid, "EEE", R, C);
+	return 0;
+}
+
+
+
+
+
 
 
 
