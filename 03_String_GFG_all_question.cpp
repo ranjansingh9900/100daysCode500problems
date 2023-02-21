@@ -1455,6 +1455,114 @@ int main()
 
 
 
+// 27...Longest Common Prefix
+
+#include <bits\stdc++.h>
+using namespace std;
+
+string longestCommonPrefix(vector<string> &strs)
+{
+    sort(strs.begin(), strs.end());
+    int a = strs.size();
+    string n = strs[0], m = strs[a - 1], ans = "";
+    for (int i = 0; i < n.size(); i++)
+    {
+        if (n[i] == m[i])
+        {
+            ans += n[i];
+        }
+        else
+            break;
+    }
+    return ans;
+}
+int main()
+{
+    vector<string> strs = {"flower", "flow", "flight"};
+    cout << longestCommonPrefix(strs);
+
+    return 0;
+}
+
+
+// 28...
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int minFlips(string s)
+{
+    int n = s.size();
+    vector<vector<int>> cnt(2, vector<int>(2, 0));
+
+    for (int i = 0; i < n; i++)
+    {
+        cnt[s[i] - '0'][i % 2]++;
+    }
+    int ans = cnt[1][0] + cnt[0][1];
+    ans = min(ans, cnt[0][0] + cnt[1][1]);
+    for (int i = 0; i < n; i++)
+    {
+        cnt[s[i] - '0'][i % 2]--;
+        cnt[s[i] - '0'][(n + i) % 2]++;
+        ans = min(ans, cnt[1][0] + cnt[0][1]);
+        ans = min(ans, cnt[0][0] + cnt[1][1]);
+    }
+    return ans;
+}
+
+int main()
+{
+    string s = "111000";
+    cout<<minFlips(s);
+
+    return 0;
+}
+
+
+
+// 29....Second most repeated string in a sequence
+#include <bits/stdc++.h>
+using namespace std;
+
+string secMostRepeated(vector<string> seq)
+{
+
+    unordered_map<string, int> occ;
+    for (int i = 0; i < seq.size(); i++)
+        occ[seq[i]]++;
+
+    int first_max = INT_MIN, sec_max = INT_MIN;
+    for (auto it = occ.begin(); it != occ.end(); it++)
+    {
+        if (it->second > first_max)
+        {
+            sec_max = first_max;
+            first_max = it->second;
+        }
+
+        else if (it->second > sec_max &&
+                 it->second != first_max)
+            sec_max = it->second;
+    }
+
+    for (auto it = occ.begin(); it != occ.end(); it++)
+        if (it->second == sec_max)
+            return it->first;
+}
+
+int main()
+{
+    vector<string> seq = {"ccc", "aaa", "ccc",
+                          "ddd", "aaa", "aaa"};
+    cout << secMostRepeated(seq);
+    return 0;
+}
+
+
+
+
+
 
 
 
