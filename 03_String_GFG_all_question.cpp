@@ -1644,6 +1644,240 @@ int main()
 
 
 
+// 32....Program to generate all possible valid IP addresses from given  string.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int is_valid(string ip)
+{
+    vector<string> ips;
+    string ex = "";
+    for (int i = 0; i < ip.size(); i++)
+    {
+        if (ip[i] == '.')
+        {
+            ips.push_back(ex);
+            ex = "";
+        }
+        else
+        {
+            ex = ex + ip[i];
+        }
+    }
+    ips.push_back(ex);
+
+    for (int i = 0; i < ips.size(); i++)
+    {
+
+        if (ips[i].length() > 3 || stoi(ips[i]) < 0 || stoi(ips[i]) > 255)
+            return 0;
+
+        if (ips[i].length() > 1 && stoi(ips[i]) == 0)
+            return 0;
+
+        if (ips[i].length() > 1 && stoi(ips[i]) != 0 && ips[i][0] == '0')
+            return 0;
+    }
+    return 1;
+}
+
+void convert(string ip)
+{
+    int l = ip.length();
+
+    if (l > 12 || l < 4)
+    {
+        cout << "Not Valid IP Address";
+    }
+
+    string check = ip;
+    vector<string> ans;
+
+    for (int i = 1; i < l - 2; i++)
+    {
+        for (int j = i + 1; j < l - 1; j++)
+        {
+            for (int k = j + 1; k < l; k++)
+            {
+                check = check.substr(0, k) + "." + check.substr(k);
+                check = check.substr(0, j) + "." + check.substr(j);
+                check = check.substr(0, i) + "." + check.substr(i);
+
+                if (is_valid(check))
+                {
+                    ans.push_back(check);
+                    std::cout << check << '\n';
+                }
+                check = ip;
+            }
+        }
+    }
+}
+
+int main()
+{
+    string A = "25525511135";
+    string B = "25505011535";
+
+    convert(A);
+    convert(B);
+
+    return 0;
+}
+
+
+
+// 33....Write a program tofind the smallest window that contains all characters of string itself.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAX_CHARS = 256;
+
+string findSubString(string str)
+{
+    int n = str.length();
+
+    int dist_count = 0;
+    unordered_map<int, int> hash_map;
+    for (int i = 0; i < n; i++)
+    {
+        hash_map[str[i]]++;
+    }
+
+    dist_count = hash_map.size();
+    int size = INT_MAX;
+    string res;
+
+    for (int i = 0; i < n; i++)
+    {
+        int count = 0;
+        int visited[256] = {0};
+        string sub_str = "";
+        for (int j = i; j < n; j++)
+        {
+            if (visited[str[j]] == 0)
+            {
+                count++;
+                visited[str[j]] = 1;
+            }
+            sub_str += str[j];
+            if (count == dist_count)
+                break;
+        }
+        if (sub_str.length() < size && count == dist_count)
+        {
+            res = sub_str;
+            size = res.length();
+        }
+    }
+    return res;
+}
+
+int main()
+{
+    string str = "aabcbcdbca";
+    cout << "Smallest window containing all distinct"
+            " characters is: "
+         << findSubString(str);
+    return 0;
+}
+
+
+
+
+// 34....Rearrange characters in a string such that no two adjacent are same
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAX_CHAR = 26;
+
+struct Key {
+
+	int freq; // store frequency of character
+	char ch;
+
+	// Function for priority_queue to store Key
+	// according to freq
+	bool operator<(const Key& k) const
+	{
+		return freq < k.freq;
+	}
+};
+
+// Function to rearrange character of a string
+// so that no char repeat twice
+void rearrangeString(string str)
+{
+	int N = str.length();
+
+	// Store frequencies of all characters in string
+	int count[MAX_CHAR] = { 0 };
+	for (int i = 0; i < N; i++)
+		count[str[i] - 'a']++;
+
+	// Insert all characters with their frequencies
+	// into a priority_queue
+	priority_queue<Key> pq;
+	for (char c = 'a'; c <= 'z'; c++) {
+		int val = c - 'a';
+		if (count[val]) {
+			pq.push(Key{ count[val], c });
+		}
+	}
+
+	// 'str' that will store resultant value
+	str = "";
+
+	// work as the previous visited element
+	// initial previous element be. ( '#' and
+	// it's frequency '-1' )
+	Key prev{ -1, '#' };
+
+	// traverse queue
+	while (!pq.empty()) {
+		// pop top element from queue and add it
+		// to string.
+		Key k = pq.top();
+		pq.pop();
+		str = str + k.ch;
+
+		// IF frequency of previous character is less
+		// than zero that means it is useless, we
+		// need not to push it
+		if (prev.freq > 0)
+			pq.push(prev);
+
+		// Make current character as the previous 'char'
+		// decrease frequency by 'one'
+		(k.freq)--;
+		prev = k;
+	}
+
+	// If length of the resultant string and original
+	// string is not same then string is not valid
+	if (N != str.length())
+		cout << " Not possible " << endl;
+
+	else // valid string
+		cout << str << endl;
+}
+
+// Driver's code
+int main()
+{
+	string str = "bbbaa";
+
+	// Function call
+	rearrangeString(str);
+	return 0;
+}
+
+
+
 
 
 
