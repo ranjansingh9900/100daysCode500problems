@@ -1561,6 +1561,88 @@ int main()
 
 
 
+// 30...Minimum number of swaps for bracket balancing.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long swapCount(string chars)
+{
+
+    int countLeft = 0, countRight = 0;
+
+    int swap = 0, imbalance = 0;
+
+    for (int i = 0; i < chars.length(); i++)
+    {
+        if (chars[i] == '[')
+        {
+
+            countLeft++;
+
+            if (imbalance > 0)
+            {
+
+                swap += imbalance;
+
+                imbalance--;
+            }
+        }
+        else if (chars[i] == ']')
+        {
+
+            countRight++;
+
+            imbalance = (countRight - countLeft);
+        }
+    }
+    return swap;
+}
+
+int main()
+{
+    string s = "[]][][";
+    cout << swapCount(s) << endl;
+
+    s = "[[][]]";
+    cout << swapCount(s) << endl;
+
+    return 0;
+}
+
+
+
+// 31....Find the longest common subsequence between two strings.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int lcs(char *X, char *Y, int m, int n)
+{
+    if (m == 0 || n == 0)
+        return 0;
+    if (X[m - 1] == Y[n - 1])
+        return 1 + lcs(X, Y, m - 1, n - 1);
+    else
+        return max(lcs(X, Y, m, n - 1), lcs(X, Y, m - 1, n));
+}
+
+int main()
+{
+    char X[] = "AGGTAB";
+    char Y[] = "GXTXAYB";
+
+    int m = strlen(X);
+    int n = strlen(Y);
+
+    cout << "Length of LCS is " << lcs(X, Y, m, n);
+
+    return 0;
+}
+
+
+
+
 
 
 
