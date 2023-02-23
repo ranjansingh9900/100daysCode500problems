@@ -1879,6 +1879,122 @@ int main()
 
 
 
+// 35....Minimum characters to be added at front to make string palindrome
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool ispalindrome(string s)
+{
+    int l = s.length();
+    int j;
+
+    for (int i = 0, j = l - 1; i <= j; i++, j--)
+    {
+        if (s[i] != s[j])
+            return false;
+    }
+    return true;
+}
+
+int main()
+{
+    string s = "BABABAA";
+    int cnt = 0;
+    int flag = 0;
+
+    while (s.length() > 0)
+    {
+
+        if (ispalindrome(s))
+        {
+            flag = 1;
+            break;
+        }
+        else
+        {
+            cnt++;
+
+            s.erase(s.begin() + s.length() - 1);
+        }
+    }
+
+    if (flag)
+        cout << cnt;
+}
+
+
+
+
+
+// 36....Given a sequence of words, print all anagrams together
+// C++ program to print anagrams
+// together using dictionary
+#include <bits/stdc++.h>
+using namespace std;
+
+void printAnagrams(string arr[], int size)
+{
+    unordered_map<string, vector<string>> map;
+
+    // Loop over all words
+    for (int i = 0; i < size; i++)
+    {
+
+        string word = arr[i];
+        char letters[word.size() + 1];
+        strcpy(letters, word.c_str());
+        sort(letters, letters + word.size() + 1);
+        string newWord = "";
+        for (int i = 0; i < word.size() + 1; i++)
+        {
+            newWord += letters[i];
+        }
+
+        if (map.find(newWord) != map.end())
+        {
+            map[newWord].push_back(word);
+        }
+        else
+        {
+
+            vector<string> words;
+            words.push_back(word);
+            map[newWord] = words;
+        }
+    }
+
+    unordered_map<string, vector<string>>::iterator it;
+    for (it = map.begin(); it != map.end(); it++)
+    {
+        vector<string> values = map[it->first];
+        if (values.size() > 1)
+        {
+            cout << "[";
+            for (int i = 0; i < values.size() - 1; i++)
+            {
+                cout << values[i] << ", ";
+            }
+            cout << values[values.size() - 1];
+            cout << "]";
+        }
+    }
+}
+
+// Driver code
+int main()
+{
+    string arr[] = {"cat", "dog", "tac", "god", "act"};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    printAnagrams(arr, size);
+
+    return 0;
+}
+
+
+
+
 
 
 
