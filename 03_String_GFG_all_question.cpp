@@ -1996,6 +1996,172 @@ int main()
 
 
 
+// 37....Find the smallest window in a string containing all characters of another string
+#include <bits/stdc++.h>
+using namespace std;
+
+string Minimum_Window(string s, string t)
+{
+
+    int m[256] = {0};
+
+    int ans = INT_MAX; // length of ans
+    int start = 0;     // starting index of ans
+    int count = 0;
+
+    // creating map
+    for (int i = 0; i < t.length(); i++)
+    {
+        if (m[t[i]] == 0)
+            count++;
+        m[t[i]]++;
+    }
+
+    // References of Window
+    int i = 0;
+    int j = 0;
+
+    // Traversing the window
+    while (j < s.length())
+    {
+        // Calculations
+        m[s[j]]--;
+        if (m[s[j]] == 0)
+            count--;
+
+        // Condition matching
+        if (count == 0)
+        {
+            while (count == 0)
+            {
+                // Sorting ans
+                if (ans > j - i + 1)
+                {
+                    ans = min(ans, j - i + 1);
+                    start = i;
+                }
+                // Sliding I
+                // Calculation for removing I
+
+                m[s[i]]++;
+                if (m[s[i]] > 0)
+                    count++;
+
+                i++;
+            }
+        }
+        j++;
+    }
+
+    if (ans != INT_MAX)
+        return s.substr(start, ans);
+    else
+        return "-1";
+}
+
+int main()
+{
+    string s = "this is a test string";
+    string t = "tist";
+
+    cout << Minimum_Window(s, t);
+    return 0;
+}
+
+
+
+// Recursive Program to remove consecutive
+// duplicates from string S.
+#include <bits/stdc++.h>
+using namespace std;
+
+// A recursive function that removes
+// consecutive duplicates from string S
+void removeDuplicates(char* S)
+{
+	// When string is empty, return
+	if (S[0] == '\0')
+		return;
+
+	// if the adjacent characters are same
+	if (S[0] == S[1]) {
+
+		// Shift character by one to left
+		int i = 0;
+		while (S[i] != '\0') {
+			S[i] = S[i + 1];
+			i++;
+		}
+
+		// Check on Updated String S
+		removeDuplicates(S);
+	}
+
+	// If the adjacent characters are not same
+	// Check from S+1 string address
+	removeDuplicates(S + 1);
+}
+
+// Driver Program
+int main()
+{
+	char S1[] = "geeksforgeeks";
+	removeDuplicates(S1);
+	cout << S1 << endl;
+
+	char S2[] = "aabcca";
+	removeDuplicates(S2);
+	cout << S2 << endl;
+
+	return 0;
+}
+
+
+
+// 39....String matching where one string contains wildcard characters
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string removeDuplicates(string s)
+{
+
+    int n = s.length();
+    string str = "";
+
+    if (n == 0)
+        return str;
+
+    for (int i = 0; i < n - 1; i++)
+    {
+
+        if (s[i] != s[i + 1])
+        {
+            str += s[i];
+        }
+    }
+
+    str.push_back(s[n - 1]);
+    return str;
+}
+
+int main()
+{
+
+    string s1 = "geeksforgeeks";
+    cout << removeDuplicates(s1) << endl;
+
+    string s2 = "aabcca";
+    cout << removeDuplicates(s2) << endl;
+
+    return 0;
+}
+
+
+
+
+
+
 
 
 
