@@ -2293,6 +2293,135 @@ int main()
 
 
 
+// 42.....Check if two given strings are isomorphic to each other
+
+// C++ program to check if two strings are isomorphic
+#include <bits/stdc++.h>
+using namespace std;
+#define MAX_CHARS 256
+
+// This function returns true if str1 and str2 are
+// isomorphic
+bool areIsomorphic(string str1, string str2)
+{
+
+	int m = str1.length(), n = str2.length();
+
+	// Length of both strings must be same for one to one
+	// correspondence
+	if (m != n)
+		return false;
+
+	// To mark visited characters in str2
+	bool marked[MAX_CHARS] = { false };
+
+	// To store mapping of every character from str1 to
+	// that of str2. Initialize all entries of map as -1.
+	int map[MAX_CHARS];
+	memset(map, -1, sizeof(map));
+
+	// Process all characters one by on
+	for (int i = 0; i < n; i++) {
+		// If current character of str1 is seen first
+		// time in it.
+		if (map[str1[i]] == -1) {
+			// If current character of str2 is already
+			// seen, one to one mapping not possible
+			if (marked[str2[i]] == true)
+				return false;
+
+			// Mark current character of str2 as visited
+			marked[str2[i]] = true;
+
+			// Store mapping of current characters
+			map[str1[i]] = str2[i];
+		}
+
+		// If this is not first appearance of current
+		// character in str1, then check if previous
+		// appearance mapped to same character of str2
+		else if (map[str1[i]] != str2[i])
+			return false;
+	}
+
+	return true;
+}
+
+// Driver program
+int main()
+{
+	cout << (areIsomorphic("aab", "xxy") ? "True" : "False")
+		<< endl;
+	return 0;
+}
+
+
+
+
+// 43.....Recursively print all sentences that can be formed from list of word lists
+
+
+// C++ program to print all possible sentences from a list of word list
+#include <iostream>
+#include <string>
+
+#define R 3
+#define C 3
+using namespace std;
+
+// A recursive function to print all possible sentences that can be formed
+// from a list of word list
+void printUtil(string arr[R][C], int m, int n, string output[R])
+{
+	// Add current word to output array
+	output[m] = arr[m][n];
+
+	// If this is last word of current output sentence, then print
+	// the output sentence
+	if (m==R-1)
+	{
+		for (int i=0; i<R; i++)
+		cout << output[i] << " ";
+		cout << endl;
+		return;
+	}
+
+	// Recur for next row
+	for (int i=0; i<C; i++)
+	if (arr[m+1][i] != "")
+		printUtil(arr, m+1, i, output);
+}
+
+// A wrapper over printUtil()
+void print(string arr[R][C])
+{
+// Create an array to store sentence
+string output[R];
+
+// Consider all words for first row as starting points and
+// print all sentences
+for (int i=0; i<C; i++)
+	if (arr[0][i] != "")
+		printUtil(arr, 0, i, output);
+}
+
+// Driver program to test above functions
+int main()
+{
+string arr[R][C] = {{"you", "we"},
+						{"have", "are"},
+						{"sleep", "eat", "drink"}};
+
+print(arr);
+
+return 0;
+}
+
+\
+
+
+
+
 
 
 
