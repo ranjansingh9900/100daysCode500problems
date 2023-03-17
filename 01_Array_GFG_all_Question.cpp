@@ -15,8 +15,6 @@ void printff(int arr[], int n)
 
 
 
-
-
 // way1
 /**void reverseArray(int arr[],int strat ,int end){
     while (strat<end)
