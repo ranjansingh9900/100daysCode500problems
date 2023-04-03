@@ -1,8 +1,5 @@
 // ******// 1..Reverse the array
 
-
-
-
 #include <iostream>
 
 using namespace std;
