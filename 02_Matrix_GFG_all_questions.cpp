@@ -1,8 +1,6 @@
 
 // 1..*******/////....Spiral traversal on a Matrix
 
-
-
 #include <bits/stdc++.h>
 using namespace std;
 
