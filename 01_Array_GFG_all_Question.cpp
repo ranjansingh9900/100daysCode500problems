@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-
-
 using namespace std;
 
 void printff(int arr[], int n)
