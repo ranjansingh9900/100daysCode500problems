@@ -137,3 +137,69 @@ int formingMagicSquare(vector<vector<int>> s) {
     // Return the minimum cost
     return *min_element(costs.begin(), costs.end());
 }
+
+
+
+
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix)
+     {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int l=0,r=m-1,b=n-1,top=0;
+        int d=1;
+        vector<int>v;
+        while(l<=r && top<=b)
+        {
+
+            if(d==1)
+            {
+                for(int i=l;i<=r;i++)
+                {
+                    v.push_back(matrix[top][i]);}
+                    d=2;
+                    top++;
+                    
+                
+            }
+            else if(d==2)
+            {
+                for(int i=top;i<=b;i++ )
+                {
+                    v.push_back(matrix[i][r]);}
+                    d=3;
+                    r--;
+                
+
+            }
+            else if(d==3)
+            {
+                for(int i=r;i>=l;i--)
+                {
+                    v.push_back(matrix[b][i]);}
+                    d=4;
+                    b--;
+                
+            }
+            else if(d==4)
+            {
+                for(int i=b;i>=top;i--)
+                {
+                    v.push_back(matrix[i][l]);
+                    
+                }
+                d=1;
+                l++;
+            }
+        }
+
+        
+        return v;
+     
+    }
+};
+
+
+
