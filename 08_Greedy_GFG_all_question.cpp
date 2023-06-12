@@ -2,6 +2,8 @@
 dshffsjfhsjf
 
 fgg
+
+
 class Solution {
 public:
     string predictPartyVictory(string senate) {
