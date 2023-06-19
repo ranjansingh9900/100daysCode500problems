@@ -1598,6 +1598,20 @@ public:
 };
 
 
+class Solution {
+public:
+    int largestAltitude(vector<int>& gain) {
+        int curr=0;
+        int max_altitude=0;
+        for(auto i:gain){
+            curr+=i;
+            max_altitude=max(curr,max_altitude);
+        }
+        return max_altitude;
+        
+    }
+};
+
 
 
 
